@@ -1,0 +1,54 @@
+.vd-default-table {
+    margin: 20px;
+}
+
+.vd-default-table table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.vd-default-table table thead .th-integer {
+    width: 15%;
+}
+
+.vd-default-table table thead .th-string {
+    width: auto;
+}
+
+.vd-default-table table thead .th-actions {
+    width: 30%;
+}
+
+.vd-default-table table th, .vd-default-table table td {
+    height: 50px;
+}
+
+.vd-default-table table tbody tr:nth-child(2n - 1) {
+    background-color: #F3F3F3;
+}
+
+.vd-default-table table tbody tr:hover {
+    background-color: #57BDD9;
+}
+
+.vd-default-table table thead {
+    background-color: #222;
+    color: #FFF;
+}
+
+.vd-default-table .row td:nth-child(2) {
+    text-align: left;
+}
+
+.fa-button {
+    margin-left: 20px;
+    font-size: 25px;
+    color: #282020;
+    cursor: pointer;
+}
+
+.fa-button:hover {
+    color: #F3F3F3;
+}
+

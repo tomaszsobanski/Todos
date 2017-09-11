@@ -1,0 +1,61 @@
+.App {
+    text-align: center;
+}
+
+.App-logo {
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
+}
+
+.App-header {
+    background-color: #222;
+    height: 150px;
+    padding: 20px;
+    color: white;
+}
+
+.App-intro {
+    font-size: large;
+}
+
+@keyframes App-logo-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@font-face {
+    font-family: "Aileron-Light";
+    src: url(../font/Aileron-Light.otf);
+}
+
+@font-face {
+    font-family: "Raleway-Bold";
+    src: url(../font/Raleway-Bold.ttf);
+}
+
+.font-1 {
+    font-family: "Aileron-Light";
+}
+
+.font-2 {
+    font-family: "Raleway-Bold";
+}
+
+input[type="text"] {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 12px;
+}
+
+button, input[type=submit] {
+    background-color: #FFF;
+    padding: 10px 15px;
+    cursor: pointer;
+    border: 1px solid;
+}
+
+button:hover, input[type=submit]:hover {
+    background-color: #57BDD9;
+    color: #FFF;
+    border: 1px solid #57BDD9;
+}
