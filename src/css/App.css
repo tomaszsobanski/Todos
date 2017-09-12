@@ -41,6 +41,13 @@
     font-family: "Raleway-Bold";
 }
 
+.back {
+    text-decoration: none;
+    color: #000;
+    text-align: left;
+    margin-left: 10px;
+}
+
 input[type="text"] {
     padding: 10px 20px;
     margin: 5px;
@@ -58,4 +65,12 @@ button:hover, input[type=submit]:hover {
     background-color: #57BDD9;
     color: #FFF;
     border: 1px solid #57BDD9;
+}
+
+.complete {
+    font-size: 12px;
+}
+
+.hide {
+    display: none;
 }

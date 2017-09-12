@@ -72,9 +72,11 @@ export default class TodosSDK extends Component {
 		});
     }
 
-    updateTodo(todoId, isComplete) {
+    updateTodo(todoId, name, isComplete, todoListId) {
 	axios.put(this.props.url + '/api/todos/' + todoId + '/?format=json', {
-	    is_complete: isComplete
+	    name: name,
+	    is_complete: isComplete,
+	    todo_list: todoListId
 	}).then(
 		res => {
 		    this.props.handle.setState({updateTodo: res.data});

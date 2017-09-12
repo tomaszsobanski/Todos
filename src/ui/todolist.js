@@ -23,14 +23,14 @@ export default class TodosList extends Component {
     handleChangeName(e) {
 	this.setState({name: e.target.value});
     }
-    
+
     handleComplete(e) {
 	this.setState({isComplete: !!e.target.checked});
     }
 
     handleFormSubmit() {
 	if (this.state.name) {
-	    this.config.todosSDK.createTodo(this.state.name, this.state.isComplete? this.state.isComplete : false, this.config.id);
+	    this.config.todosSDK.createTodo(this.state.name, this.state.isComplete ? this.state.isComplete : false, this.config.id);
 	}
     }
 
@@ -43,12 +43,15 @@ export default class TodosList extends Component {
     render() {
 	return (
 		<div>
+		    <p className="back">
+			<a href="/">Back</a>
+		    </p>
 		    <div>
 			<div>
 			    <input type="text" placeholder="type todos list name" onChange={this.handleChangeName} />
 			</div>
 			<div>
-			    <input type="checkbox" value="1" onChange={this.handleComplete} />&nbsp;is&nbsp;complete
+			    <input type="checkbox" value="1" onChange={this.handleComplete} />&nbsp;<span className="complete">is&nbsp;complete</span>
 			</div>
 			<div>
 			    <input type="submit" value="Add" onClick={this.handleFormSubmit} />

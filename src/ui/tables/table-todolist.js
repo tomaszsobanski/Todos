@@ -51,7 +51,7 @@ export default class TableTodoList extends Table {
 	    this.config.isFillTable = false;
 	}
 
-	if (nextState.deleteTodo && nextState.deleteTodo !== this.state.deleteTodo) {
+	if ((nextState.deleteTodo && nextState.deleteTodo !== this.state.deleteTodo) || (nextState.updateTodo && nextState.updateTodo !== this.state.updateTodo)) {
 	    this.fillTable();
 	}
     }

@@ -8,10 +8,80 @@ export default class TBodyTodosList extends TBody {
 	this.search = this.search.bind(this);
 	this.completeSearch = this.completeSearch.bind(this);
 	this.remove = this.remove.bind(this);
+	this.handleDBClick = this.handleDBClick.bind(this);
+	this.handleSave = this.handleSave.bind(this);
+	this.handleCancel = this.handleCancel.bind(this);
+	this.handleOnChangeName = this.handleOnChangeName.bind(this);
+	this.handleDBClickComplete = this.handleDBClickComplete.bind(this);
+	this.handleSaveComplete = this.handleSaveComplete.bind(this);
+	this.handleCancelComplete = this.handleCancelComplete.bind(this);
 	this.state = {
 	    search: '',
-	    completeSearch: -1
+	    completeSearch: -1,
+	    val: {}
 	};
+    }
+
+    handleDBClick(e, item) {
+	var parentNode = e.target.parentElement;
+	var nameText = parentNode.querySelector('.name-text');
+	var nameInput = parentNode.querySelector('.name-input');
+	var input = nameInput.querySelector('input');
+	input.value = item.name;
+	nameText.className += ' hide';
+	nameInput.classList.remove('hide');
+    }
+    
+    handleDBClickComplete(e, item) {
+	var parentNode = e.target.parentElement;
+	var completeText = parentNode.querySelector('.complete-text');
+	var completeSelect = parentNode.querySelector('.complete-select');
+	var select = completeSelect.querySelector('select');
+	select.value = item.is_complete ? 1 : 0;
+	completeText.className += ' hide';
+	completeSelect.classList.remove('hide');
+    }
+
+    handleSave(e, item) {
+	var parentNode = e.target.parentElement.parentElement;
+	var nameInput = parentNode.querySelector('.name-input');
+	var input = nameInput.querySelector('input');
+	if (input.value) {
+	    this.props.parent.config.todosSDK.updateTodo(item.id, input.value, item.is_complete, item.todo_list);
+	    this.handleCancel(e, item);
+	}
+    }
+    
+    handleSaveComplete(e, item) {
+	var parentNode = e.target.parentElement.parentElement;
+	var completeSelect = parentNode.querySelector('.complete-select');
+	var select = completeSelect.querySelector('select');
+	if (select.value) {
+	    this.props.parent.config.todosSDK.updateTodo(item.id, item.name, select.value, item.todo_list);
+	    this.handleCancelComplete(e, item);
+	}
+    }
+    
+    handleCancel(e, item) {
+	var parentNode = e.target.parentElement.parentElement;
+	var nameText = parentNode.querySelector('.name-text');
+	var nameInput = parentNode.querySelector('.name-input');
+	nameInput.className += ' hide';
+	nameText.classList.remove('hide');
+    }
+    
+    handleCancelComplete(e, item) {
+	var parentNode = e.target.parentElement.parentElement;
+	var completeText = parentNode.querySelector('.complete-text');
+	var completeSelect = parentNode.querySelector('.complete-select');
+	completeSelect.className += ' hide';
+	completeText.classList.remove('hide');
+    }
+    
+    handleOnChangeName(e, item) {
+	var val = this.state.val;
+	val[item.id] = e.currentTarget.value; 
+	this.setState({ val } );
     }
 
     search(e) {
@@ -54,10 +124,30 @@ export default class TBodyTodosList extends TBody {
 		    {temp && temp.length ? temp.map((item, i) =>
 					<tr className="row" key={i}>
 						<td>{item.id}</td>
-						<td>{item.name}</td>
-						<td>{item.is_complete ? 'yes' : 'no'}</td>
 						<td>
-						    <i className="fa fa-button fa-pencil-square-o" aria-hidden="true" data-id={item.id}></i>
+						    <span className="name-text" data-name={item.name} onDoubleClick={(e) => {this.handleDBClick(e, item)}}>
+							{item.name}
+						    </span>
+						    <span className="name-input hide">
+							<input type="text" value={this.state.val.hasOwnProperty(item.id) ? this.state.val[item.id] : item.name} onChange={(e) => {this.handleOnChangeName(e, item) }} />
+							<i onClick={(e) => {this.handleSave(e, item)}} className="fa fa-button fa-floppy-o" aria-hidden="true"></i>
+							<i onClick={(e) => {this.handleCancel(e, item)}} className="fa fa-button fa-times" aria-hidden="true"></i>
+						    </span>
+						</td>
+						<td>
+						    <span className="complete-text" onDoubleClick={(e) => {this.handleDBClickComplete(e, item)}}>
+							{item.is_complete ? 'yes' : 'no'}
+						    </span>
+						    <span className="complete-select hide">
+							<select>
+							    <option selected={!item.is_complete ? ' selected ' : ''} value="0">no</option>
+							    <option selected={item.is_complete ? ' selected ' : ''} value="1">yes</option>
+							</select>
+							<i onClick={(e) => {this.handleSaveComplete(e, item)}} className="fa fa-button fa-floppy-o" aria-hidden="true"></i>
+							<i onClick={(e) => {this.handleCancelComplete(e, item)}} className="fa fa-button fa-times" aria-hidden="true"></i>
+						    </span>
+						</td>
+						<td>
 						    <i onClick={(e) => {this.remove(e, item)}} className="fa fa-button fa-trash-o" aria-hidden="true"></i>
 						</td>
 					</tr>

@@ -38,15 +38,11 @@ export default class TableTodosList extends Table {
     }
 
     componentWillUpdate(nextProps, nextState) {
-	
-	//console.log(nextProps, nextState);
-	/*if (nextState.todosLists && this.config.isFillTable) {
-	}*/
 	if (!Object.equals(nextState.todosLists, this.state.todosLists) && this.config.isFillTable) {
 	    this.setState({data: nextState.todosLists});
 	    this.config.isFillTable = false;
 	}
-	if (nextState.deleteTodoList && nextState.deleteTodoList !== this.state.todosLists.deleteTodoList) {
+	if (nextState.deleteTodoList && nextState.deleteTodoList !== this.state.deleteTodoList || nextState.updateTodoList && nextState.updateTodoList !== this.state.updateTodoList) {
 	    this.fillTable();
 	}
     }
